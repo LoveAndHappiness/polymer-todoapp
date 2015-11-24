@@ -18,7 +18,7 @@
         </style>
 
         <!-- input field -->
-        <paper-card heading="Polymer TodoApp">
+        <paper-card heading="Simple Polymer TodoApp">
             <div class="card-actions">
                 <paper-input
                     autofocus
@@ -53,6 +53,7 @@
     var ENTER_KEY = 13;
     var ESC_KEY = 27;
 
+    (function () {
         Polymer({
             is: 'td-todos',
 
@@ -109,5 +110,6 @@
                 this.model.toggleItemCompletion();
             }
         });
+    }());
     </script>
 </dom-module>

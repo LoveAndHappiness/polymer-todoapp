@@ -6,6 +6,7 @@
         <iron-localstorage name="polymer-todos" value="{{items}}" on-iron-localstorage-load-empty="initializeDefaultTodos"></iron-localstorage>
     </template>
     <script>
+    (function () {
         Polymer({
             is: 'td-model',
 
@@ -22,9 +23,9 @@
 
             initializeDefaultTodos: function () {
                 this.items = [
-                    {title: 'first title', completed: false},
-                    {title: 'second title', completed: true},
-                    {title: 'third title', completed: false}
+                    {title: 'First Title', completed: false},
+                    {title: 'Double Click to Edit', completed: true},
+                    {title: 'Third Title', completed: false}
                 ];
             },
 
@@ -65,7 +66,7 @@
                 // event is fired when item completion is toggled
                 // ajax call
             }
-
         });
+    }());
     </script>
 </dom-module>
