@@ -6,6 +6,7 @@
         <iron-localstorage name="polymer-todos" value="{{items}}" on-iron-localstorage-load-empty="initializeDefaultTodos"></iron-localstorage>
     </template>
     <script>
+    (function () {        
         Polymer({
             is: 'td-model',
 
@@ -67,5 +68,6 @@
             }
 
         });
+    }());
     </script>
 </dom-module>
