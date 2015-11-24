@@ -3,4 +3,5 @@ body {
   display: flex;
   justify-content: center;
   font-family: 'Roboto', 'Noto', sans-serif;
-  -webkit-font-smoothing: antialiased; }
+  -webkit-font-smoothing: antialiased;
+  margin-top: 60px; }
