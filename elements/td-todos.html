@@ -1,0 +1,113 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+
+<dom-module id="td-todos">
+    <template>
+        <style>
+            :host {
+                display: flex;
+                flex-direction: column;
+                width: 450px;
+            }
+
+            paper-card {
+                margin-bottom: 16px;
+            }
+        </style>
+
+        <!-- input field -->
+        <paper-card heading="Polymer TodoApp">
+            <div class="card-actions">
+                <paper-input
+                    autofocus
+                    label="What needs to be done?"
+                    id="addItemInputField"
+                    on-keyup="keyupAction">
+                </paper-input>
+            </div>
+        </paper-card>
+
+        <!-- TodoList -->
+        <template is="dom-if" if="{{items.length}}">
+        <paper-card heading="Todo List" id="TodoList" on-td-destroy-item-action="destroyItemAction" on-td-toggle-item-completion="toggleItemCompletion">
+            <div class="card-actions">
+                <template is="dom-repeat" items="{{items}}">
+                    <td-item item="{{item}}"></td-item>
+                </template>
+            </div>
+        </paper-card>
+        </template>
+
+        <!-- Options -->
+        <template is="dom-if" if="{{items.length}}">
+        <section id="Options">
+            <paper-button on-tap="completeAll">Complete All</paper-button>        
+            <paper-button on-tap="clearCompleted">Clear Completed</paper-button>        
+        </section>
+        </template>
+    </template>
+
+    <script>
+    var ENTER_KEY = 13;
+    var ESC_KEY = 27;
+
+        Polymer({
+            is: 'td-todos',
+
+            properties: {
+                items: {
+                    type: Array,
+                    notify: true
+                },
+                model: {
+                    type: Object
+                },
+                modelId: {
+                    type: String
+                }
+            },
+
+            attached: function () {
+                this.model = document.querySelector('#' + this.modelId);  
+            },
+
+            keyupAction: function (e) {
+                if (e.keyCode === ENTER_KEY) {
+                    this.addItemAction();
+                } else if (e.keyCode === ESC_KEY) {
+                    this.cancelAddItemAction();
+                }
+            },
+
+            addItemAction: function () {
+                var title = this.querySelector('#addItemInputField').value;
+
+                this.model.addItem(title);
+
+                this.querySelector('#addItemInputField').value = '';
+            },
+
+            cancelAddItemAction: function () {
+                this.querySelector('#addItemInputField').value = '';
+            },
+
+            destroyItemAction: function (e, item) {
+                this.model.destroyItem(item);
+            },
+
+            completeAll: function () {
+                this.model.completeAll();
+            },
+
+            clearCompleted: function () {
+                this.model.clearCompleted();
+            },
+
+            toggleItemCompletion: function () {
+                this.model.toggleItemCompletion();
+            }
+        });
+    </script>
+</dom-module>

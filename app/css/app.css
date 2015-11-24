@@ -1,0 +1,6 @@
+body {
+  background: #f2f2f2;
+  display: flex;
+  justify-content: center;
+  font-family: 'Roboto', 'Noto', sans-serif;
+  -webkit-font-smoothing: antialiased; }

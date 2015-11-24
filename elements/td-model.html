@@ -1,0 +1,71 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-localstorage/iron-localstorage.html">
+
+<dom-module id="td-model">
+    <template>
+        <iron-localstorage name="polymer-todos" value="{{items}}" on-iron-localstorage-load-empty="initializeDefaultTodos"></iron-localstorage>
+    </template>
+    <script>
+        Polymer({
+            is: 'td-model',
+
+            properties: {
+                items: {
+                    type: Array,
+                    notify: true
+                }
+            },
+
+            created: function () {
+                localStorage.clear();
+            },
+
+            initializeDefaultTodos: function () {
+                this.items = [
+                    {title: 'first title', completed: false},
+                    {title: 'second title', completed: true},
+                    {title: 'third title', completed: false}
+                ];
+            },
+
+            addItem: function (title) {
+                title = String(title).trim();
+
+                if (!title) {
+                    return;
+                }
+
+                this.push('items', {title: title, completed: false});
+            },
+
+            destroyItem: function (item) {
+                var i = this.items.indexOf(item);
+
+                this.splice('items', i, 1);
+            },
+
+            completeAll: function () {
+                var that = this;
+                this.items.forEach(function(item) {
+                    var i = that.items.indexOf(item);
+
+                    that.set(['items', i, 'completed'], true);
+                });
+            },
+
+            clearCompleted: function () {
+                this.items = this.items.filter(function (item) {
+                    if (item.completed === false) {
+                        return item;
+                    }
+                });
+            },
+
+            toggleItemCompletion: function () {
+                // event is fired when item completion is toggled
+                // ajax call
+            }
+
+        });
+    </script>
+</dom-module>
